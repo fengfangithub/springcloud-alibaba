@@ -22,9 +22,9 @@ public class PaymentController {
     public CommonResult<Payment> queryById(Integer id){
         Payment payment = paymentService.queryById(id);
         if(payment != null){
-            return new CommonResult<>(200, "成功", payment);
+            return new CommonResult<Payment>(200, "成功", payment);
         }else {
-            return new CommonResult<>(500, "失败");
+            return new CommonResult<Payment>(500, "失败");
         }
     }
 
@@ -32,9 +32,9 @@ public class PaymentController {
     public CommonResult<Integer> insert(@RequestBody Payment payment){
         int result = paymentService.insert(payment);
         if(result > 0){
-            return new CommonResult<>(200, "成功", result);
+            return new CommonResult<Integer>(200, "成功", result);
         }else {
-            return new CommonResult<>(500, "失败");
+            return new CommonResult<Integer>(500, "失败");
         }
     }
 }

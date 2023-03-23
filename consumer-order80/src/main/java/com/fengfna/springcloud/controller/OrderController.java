@@ -1,7 +1,7 @@
 package com.fengfna.springcloud.controller;
 
-import com.fengfna.springcloud.entity.CommonResult;
-import com.fengfna.springcloud.entity.Payment;
+import com.fengfan.springcloud.entity.CommonResult;
+import com.fengfan.springcloud.entity.Payment;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
