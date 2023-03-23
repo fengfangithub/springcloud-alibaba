@@ -24,6 +24,8 @@
         <module>consumer-order80</module>
         <module>springcoud-common-api</module>
         <module>eureka-server7001</module>
+        <module>provider-payment8002</module>
+        <module>consumer-order81</module>
     </modules>
 
     <dependencyManagement>

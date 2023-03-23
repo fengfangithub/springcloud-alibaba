@@ -1,4 +1,4 @@
-package com.fengfna.springcloud.config;
+package com.fengfan.springcloud.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
