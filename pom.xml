@@ -26,6 +26,8 @@
         <module>eureka-server7001</module>
         <module>provider-payment8002</module>
         <module>consumer-order81</module>
+        <module>provider-payment8003</module>
+        <module>consumer-order82</module>
     </modules>
 
     <dependencyManagement>

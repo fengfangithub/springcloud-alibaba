@@ -14,8 +14,8 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/order")
-public class OrderZookeeperController {
-    private static final String URL = "http://provider-payment";
+public class OrderConsulController {
+    private static final String URL = "http://consul-provider-payment";
     @Resource
     private RestTemplate restTemplate;
 

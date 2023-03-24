@@ -1,0 +1,15 @@
+server:
+  port: 82
+
+spring:
+  application:
+    name: consul-consumer-order
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+logging:
+  level:
+    root: info
+

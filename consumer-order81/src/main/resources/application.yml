@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: consumer-order
+    name: zookeeper-consumer-order
   cloud:
     zookeeper:
       connect-string: 192.168.159.135:2181
