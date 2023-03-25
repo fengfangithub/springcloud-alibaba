@@ -2,9 +2,7 @@ package com.fengfna.springcloud.controller;
 
 import com.fengfan.springcloud.entity.CommonResult;
 import com.fengfan.springcloud.entity.Payment;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -17,12 +15,18 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    private static final String URL = "http://localhost:8001/payment/";
+    private static final String URL = "http://eureka-provider-payment";
     @Resource
     private RestTemplate restTemplate;
 
     @PostMapping("/create")
-    public CommonResult<Payment> create(Payment payment) {
-        return restTemplate.postForObject(URL + "insert", payment, CommonResult.class);
+    public CommonResult<Integer> create(Payment payment) {
+        return restTemplate.postForObject(URL + "/payment/insert", payment, CommonResult.class);
     }
+
+    @GetMapping("/getPayment/{id}")
+    public CommonResult<Payment> getPayment(@PathVariable String id) {
+        return restTemplate.getForObject(URL + "/payment/queryById/" + id, CommonResult.class);
+    }
+
 }

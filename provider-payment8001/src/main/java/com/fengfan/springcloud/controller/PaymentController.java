@@ -3,9 +3,12 @@ package com.fengfan.springcloud.controller;
 import com.fengfan.springcloud.entity.CommonResult;
 import com.fengfan.springcloud.entity.Payment;
 import com.fengfan.springcloud.service.PaymentService;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author fengfan
@@ -17,9 +20,11 @@ import javax.annotation.Resource;
 public class PaymentController {
     @Resource
     private PaymentService paymentService;
+    @Resource
+    private DiscoveryClient client;
 
-    @GetMapping("/queryById")
-    public CommonResult<Payment> queryById(Integer id){
+    @GetMapping("/queryById/{id}")
+    public CommonResult<Payment> queryById(@PathVariable Integer id){
         Payment payment = paymentService.queryById(id);
         if(payment != null){
             return new CommonResult<Payment>(200, "成功", payment);
@@ -37,4 +42,16 @@ public class PaymentController {
             return new CommonResult<Integer>(500, "失败");
         }
     }
+
+    @PostMapping("/discovery")
+    public Object discovery(){
+        List<String> list = client.getServices();
+        System.out.println(list);
+        List<ServiceInstance> serviceInstances = client.getInstances("eureka-provider-payment");
+        for (ServiceInstance serviceInstance: serviceInstances){
+            System.out.println(serviceInstance);
+        }
+        return client;
+    }
+
 }
