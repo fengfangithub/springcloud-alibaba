@@ -2,10 +2,13 @@ package com.fengfna.springcloud.controller;
 
 import com.fengfan.springcloud.entity.CommonResult;
 import com.fengfan.springcloud.entity.Payment;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author fengfan
@@ -18,6 +21,8 @@ public class OrderController {
     private static final String URL = "http://eureka-provider-payment";
     @Resource
     private RestTemplate restTemplate;
+    @Resource
+    private DiscoveryClient client;
 
     @PostMapping("/create")
     public CommonResult<Integer> create(Payment payment) {
@@ -25,8 +30,18 @@ public class OrderController {
     }
 
     @GetMapping("/getPayment/{id}")
-    public CommonResult<Payment> getPayment(@PathVariable String id) {
+    public CommonResult<Payment> getPayment(@PathVariable Integer id) {
         return restTemplate.getForObject(URL + "/payment/queryById/" + id, CommonResult.class);
     }
 
+    @PostMapping("/discovery")
+    public Object discovery(){
+        List<String> list = client.getServices();
+        System.out.println(list);
+        List<ServiceInstance> serviceInstances = client.getInstances("eureka-provider-payment");
+        for (ServiceInstance serviceInstance: serviceInstances){
+            System.out.println(serviceInstance);
+        }
+        return client;
+    }
 }

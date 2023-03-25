@@ -2,6 +2,7 @@ package com.fengfan.springcloud.controller;
 
 import com.fengfan.springcloud.entity.CommonResult;
 import com.fengfan.springcloud.entity.Payment;
+import com.fengfan.springcloud.service.PaymentFeignService;
 import com.fengfan.springcloud.service.PaymentService;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -17,13 +18,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/payment")
-public class PaymentController {
+public class PaymentController implements PaymentFeignService {
     @Resource
     private PaymentService paymentService;
     @Resource
     private DiscoveryClient client;
 
     @GetMapping("/queryById/{id}")
+    @Override
     public CommonResult<Payment> queryById(@PathVariable Integer id){
         Payment payment = paymentService.queryById(id);
         if(payment != null){
@@ -34,6 +36,7 @@ public class PaymentController {
     }
 
     @PostMapping("/insert")
+    @Override
     public CommonResult<Integer> insert(@RequestBody Payment payment){
         int result = paymentService.insert(payment);
         if(result > 0){
@@ -41,6 +44,17 @@ public class PaymentController {
         }else {
             return new CommonResult<Integer>(500, "失败");
         }
+    }
+
+    @GetMapping("/getTimeOut")
+    @Override
+    public CommonResult<String> getTimeOut() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return new CommonResult<>(200, "成功", "超时控制");
     }
 
     @PostMapping("/discovery")

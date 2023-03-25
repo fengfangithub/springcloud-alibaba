@@ -34,6 +34,7 @@
         <module>consumer-order81</module>
         <module>provider-payment8003</module>
         <module>consumer-order82</module>
+        <module>consumer-order-feign83</module>
     </modules>
 
     <dependencyManagement>

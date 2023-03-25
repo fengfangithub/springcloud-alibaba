@@ -1,0 +1,40 @@
+server:
+  port: 83
+
+spring:
+  application:
+    name: feign-consumer-order
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: consumer-order83
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+#第一种方式直接使用底层的ribbon来控制超时
+#ribbon:
+#  ReadTimeout: 5000
+#  ConnectTimeout: 5000
+
+# 第二种使用feign的配置来实现
+feign:
+  client:
+    config:
+      # 默认配置，对所有的客户端都有作用
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
+        logger-level: FULL
+      # 对单独的服务进行配置，优先级大于默认配置，也既是调用eureka-provider-payment时候，会使用单独配置
+#      eureka-provider-payment:
+#        connect-timeout: 2000
+#        read-timeout: 2000
+logging:
+  level:
+    com.fengfan.springcloud: debug
+
