@@ -205,3 +205,98 @@ logging:
 因为 OpenFeign 的调试日志是以 debug 级别来输出的。而 Spring Boot 默认的日志级别是 info 级别。info 级别是大于 debug 级别的，所以 debug 级别的日志（OpenFeign日志）不会输出。我们需要把我们项目日志改成debug。
 
 ---
+
+## Hystrix
+
+### 概述
+![img.png](image/img_3.png)
+![img.png](image/img_2.png)
+
+### 重要概念
+
+1. 服务降级： 服务器忙，请稍候再试，不让客户端等待并立刻返回一个友好提示，fallback。
+哪些情况会触发降级：程序运行异常、超时、服务熔断触发服务降级、线程池/信号量打满也会导致服务降级
+
+2. 服务熔断：类比保险丝达到最大服务访问后，直接拒绝访问，拉闸限电，然后调用服务降级的方法并返回友好提示。整个过程：服务的降级->进而熔断->恢复调用链路
+
+3. 服务限流：秒杀高并发等操作，严禁一窝蜂的过来拥挤，大家排队，一秒钟N个，有序进行
+
+### 服务降级
+
+@HystrixCommand实现服务端服务降级
+
+feign客户端降级：
+```yaml
+feign:
+  hystrix:
+    enabled: true
+```
+
+启动类：
+```java
+//@EnableHystrix
+```
+
+业务类：
+```java
+@FeignClient(value = "hystrix-provider-payment", fallback = HystrixFeignFallbackImpl.class)
+public interface HystrixFeignConsumerService {
+
+    @GetMapping("/hystrix/ok/{id}")
+    String infoOk(@PathVariable String id);
+
+    @GetMapping("/hystrix/timeOut/{id}")
+    String timeOut(@PathVariable String id);
+}
+@Component
+public class HystrixFeignFallbackImpl implements HystrixFeignConsumerService {
+    @Override
+    public String infoOk(String id) {
+        return "infoOk fallback";
+    }
+
+    @Override
+    public String timeOut(String id) {
+        return "timeout fall back";
+    }
+}
+```
+
+### 服务熔断
+
+```java
+public class HystrixConsumerController {
+    //服务熔断
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled",value = "true"),  //是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"),   //请求次数
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "10000"),  //时间范围
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"), //失败率达到多少后跳闸
+    })
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id){
+        if (id < 0){
+            throw new RuntimeException("*****id 不能负数");
+        }
+        return Thread.currentThread().getName()+"\t"+"调用成功";
+    }
+    public String paymentCircuitBreaker_fallback(@PathVariable("id") Integer id){
+        return "id 不能负数，请稍候再试,id: " +id;
+    }
+}
+
+```
+
+#### 断路器在什么情况下开始起作用
+![img_4.png](image/img_4.png)
+
+#### 断路器开启或者关闭的条件
+1. 当满足一定阀值的时候（默认10秒内超过20个请求次数）
+2. 当失败率达到一定的时候（默认10秒内超过50%请求失败）
+3. 到达以上阀值，断路器将会开启
+4. 当开启的时候，所有请求都不会进行转发
+5. 一段时间之后（默认是5秒），这个时候断路器是半开状态，会让其中一个请求进行转发。如果成功，断路器会关闭，若失败，继续开启。重复4和5
+
+#### 断路器打开之后
+![img_5.png](image/img_5.png)
+
+---

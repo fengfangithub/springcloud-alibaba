@@ -1,0 +1,27 @@
+server:
+  port: 84
+
+spring:
+  application:
+    name: consumer-hystrix-feign84
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: consumer-order80
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      # 默认配置，对所有的客户端都有作用
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
