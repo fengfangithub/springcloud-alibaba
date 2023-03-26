@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+#      uri: http://localhost:8500/ #配置服务地址
+      label: master
+      profile: dev
+      discovery:
+        enabled: true #从配置中心读取文件
+        service-id: config-server #配置中心的servieId，即服务名。
+
+# rabbitmq配置
+  rabbitmq:
+    addresses: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: config-client:8600
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/

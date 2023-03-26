@@ -1,0 +1,39 @@
+server:
+  port: 8500
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/fengfangithub/springcloud-alibaba.git
+          search-paths: spring-cloud-config
+          default-label: master
+          username:
+          password:
+
+# rabbitmq配置
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: config-server:8500
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+# 设置actuator在HTTP上暴露控制端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
