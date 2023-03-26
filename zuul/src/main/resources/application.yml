@@ -1,0 +1,36 @@
+server:
+  port: 8094
+spring:
+  application:
+    name: zuul
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    # 自定义服务名称信息
+    instance-id: zull:8094
+    #访问路径可以显示Ip地址
+    prefer-ip-address: true
+
+
+zuul:
+  routes:
+#    prefix: zuul #添加zuul前缀
+#    ignored-services: '*' # 使用'*'可忽略所有微服务
+#    ignored-patterns: /test/** # 忽略/test/下所有路径
+    eureka-provider:
+      path: /eureka-provider/**
+      serviceId: eureka-provider
+      sensitive-headers:  #局部配置，取消全局定义的敏感头，使之能向下游传递请求头
+    url-test:
+      path: /api/**
+      url: http://www.baidu.com/
+#  sensitive-headers: Cookie,Set-Cookie,Authorization # 全局配置，zuul不会向下游传递这三个请求头
+#  ignored-headers: token  #全局忽略头，忽略token这个请求头，不向下游服务传递这个token请求头
+#  retryable: true #开启重试功能
+
+eureka-provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 策略类(全路径名)
