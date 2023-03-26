@@ -6,6 +6,7 @@ spring:
 #      uri: http://localhost:8500/ #配置服务地址
       label: master
       profile: dev
+      name: application
       discovery:
         enabled: true #从配置中心读取文件
         service-id: config-server #配置中心的servieId，即服务名。
