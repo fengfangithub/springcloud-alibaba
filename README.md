@@ -300,3 +300,102 @@ public class HystrixConsumerController {
 ![img_5.png](image/img_5.png)
 
 ---
+
+## Springcloud Gateway
+
+### 是什么
+![img_6.png](image/img_6.png)
+![img_7.png](image/img_7.png)
+
+### 能干嘛
+
+反向代理、鉴权、流量控制、熔断、日志监控等
+
+### 三大核心概念
+
+1. Route(路由)：路由是构建网关的基本模块，它由ID，目标URI，一系列的断言和过滤器组成，如果断言为true则匹配该路由。
+2. Predicate（断言）：参考的是java8的java.util.function.Predicate开发人员可以匹配HTTP请求中的所有内容（例如请求头或请求参数），如果请求与断言相匹配则进行路由。
+3. Filter(过滤)：指的是Spring框架中GatewayFilter的实例，使用过滤器，可以在请求被路由前或者之后对请求进行修改。
+![img_10.png](image/img_10.png)
+
+
+### 工作流程
+![img_6.png](image/img_8.png)
+![img_7.png](image/img_9.png)
+
+### mavne依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+```
+
+### yml配置
+
+```yaml
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          uri: http://localhost:8001 #匹配后提供服务的路由地址
+          predicates:
+            - Path=/payment/queryById/** #断言,路径相匹配的进行路由
+```
+
+### 动态路由
+
+```yaml
+spring:
+  application:
+    name: spring-cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+        - id: payment_routh #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001 #匹配后提供服务的路由地址
+          uri: http://eureka-provider-payment
+          predicates:
+            - Path=/payment/queryById/** #断言,路径相匹配的进行路由
+```
+
+### 常用的Route Predicate
+![img_11.png](image/img_11.png)
+
+### Filter
+
+![img_12.png](image/img_12.png)
+
+### 自定义过滤器
+
+```java
+@Component
+@Slf4j
+public class MyLogGateWayFilter implements GlobalFilter, Ordered {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+
+        log.info("*********come in MyLogGateWayFilter: " + new Date());
+        String username = exchange.getRequest().getQueryParams().getFirst("username");
+        if (StringUtils.isEmpty(username)) {
+            log.info("*****用户名为Null 非法用户,(┬＿┬)");
+            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);//给人家一个回应
+            return exchange.getResponse().setComplete();
+        }
+        return chain.filter(exchange);
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
+    }
+
+}
+```

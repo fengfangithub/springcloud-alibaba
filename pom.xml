@@ -37,6 +37,9 @@
         <module>consumer-order-feign83</module>
         <module>provider-hystrix-payment8004</module>
         <module>consumer-hystrix-feign84</module>
+        <module>spring-cloud-gateway</module>
+        <module>zuul</module>
+        <module>config</module>
     </modules>
 
     <dependencyManagement>
