@@ -73,7 +73,7 @@ eureka:
     eviction-interval-timer-in-ms: 2000
 ```
 
-## springcloud-zookeeper
+## spring-cloud-zookeeper
 
 ### maven依赖
 ```xml
@@ -99,7 +99,7 @@ spring:
 
 ---
 
-## springcloud-consul
+## spring-cloud-consul
 
 ### 下载安装地址
 https://developer.hashicorp.com/consul/downloads
@@ -301,7 +301,7 @@ public class HystrixConsumerController {
 
 ---
 
-## Springcloud Gateway
+## Spring-cloud Gateway
 
 ### 是什么
 ![img_6.png](image/img_6.png)
@@ -399,3 +399,25 @@ public class MyLogGateWayFilter implements GlobalFilter, Ordered {
 
 }
 ```
+
+## spring-cloud Stream
+
+### 是什么
+![img_13.png](image/img_13.png)
+
+### 为什么用spring-cloud Stream
+![img_14.png](image/img_14.png)
+![img_15.png](image/img_15.png)
+
+### stream凭什么可以统一底层差异
+![img_16.png](image/img_16.png)
+![img_17.png](image/img_17.png)
+
+### Binder
+![img_18.png](image/img_18.png)
+![img_19.png](image/img_19.png)
+
+### Spring Cloud Stream标准流程套路
+![img_20.png](image/img_20.png)
+![img_21.png](image/img_21.png)
+

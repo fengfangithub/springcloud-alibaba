@@ -40,6 +40,8 @@
         <module>spring-cloud-gateway</module>
         <module>zuul</module>
         <module>config</module>
+        <module>stream-rabbitmq-provider8801</module>
+        <module>stream-rabbitmq-consumer8802</module>
     </modules>
 
     <dependencyManagement>
