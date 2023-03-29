@@ -455,3 +455,7 @@ Nacos就是注册中心+配置中心的组合
 ### 切换
 
 ![img_26.png](image/img_26.png)
+
+### Nacos中的dataid的组成格式与SpringBoot配置文件中的匹配规则
+
+![img_27.png](image/img_27.png)

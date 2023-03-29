@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.159.135:8848
+      config:
+        file-extension: yaml
+        server-addr: 192.168.159.135:8848
+        enabled: true

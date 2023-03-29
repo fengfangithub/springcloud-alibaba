@@ -45,6 +45,7 @@
         <module>stream-rabbitmq-consumer8802</module>
         <module>nacos-payment-provider</module>
         <module>nacos-order-consumer</module>
+        <module>nacos-config-client</module>
     </modules>
 
     <dependencyManagement>
