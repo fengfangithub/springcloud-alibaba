@@ -421,3 +421,23 @@ public class MyLogGateWayFilter implements GlobalFilter, Ordered {
 ![img_20.png](image/img_20.png)
 ![img_21.png](image/img_21.png)
 
+## Spring Cloud Sleuth
+
+### 为什么会出现这个技术？
+![img_22.png](image/img_22.png)
+
+### 是什么
+
+Spring Cloud Sleuth提供了一套完整的服务跟踪的解决方案
+在分布式系统中提供追踪解决方案并且兼容支持了zipkin
+
+### 解决
+![img_23.png](image/img_23.png)
+
+### 完整的调用链路
+![img_24.png](image/img_24.png)
+
+Trace:类似于树结构的Span集合，表示一条调用链路，存在唯一标识
+
+span:表示调用链路来源，通俗的理解span就是一次请求信息
+

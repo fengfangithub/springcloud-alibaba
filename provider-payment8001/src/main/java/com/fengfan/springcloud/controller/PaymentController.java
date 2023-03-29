@@ -68,4 +68,9 @@ public class PaymentController implements PaymentFeignService {
         return client;
     }
 
+    @GetMapping("/paymentZipkin")
+    public String paymentZipkin(){
+        return "hello world zipkin";
+    }
+
 }
