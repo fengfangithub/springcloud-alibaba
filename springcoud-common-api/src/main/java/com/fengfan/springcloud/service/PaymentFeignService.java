@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @date 2023/3/25 16:36
  * @since JDK1.8
  */
-@FeignClient(value = "eureka-provider-payment")
+//@FeignClient(value = "eureka-provider-payment")
+@FeignClient(value = "nacos-provider-payment")
 public interface PaymentFeignService {
 
     @GetMapping("/payment/queryById/{id}")

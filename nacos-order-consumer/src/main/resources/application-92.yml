@@ -1,0 +1,10 @@
+server:
+  port: 92
+
+spring:
+  application:
+    name: nacos-consumer-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.159.135:8848

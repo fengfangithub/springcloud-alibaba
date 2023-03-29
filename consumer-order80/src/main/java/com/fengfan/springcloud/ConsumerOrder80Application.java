@@ -1,4 +1,4 @@
-package com.fengfna.springcloud;
+package com.fengfan.springcloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.fengfna.springcloud.controller;
+package com.fengfan.springcloud.controller;
 
 import com.fengfan.springcloud.entity.CommonResult;
 import com.fengfan.springcloud.entity.Payment;

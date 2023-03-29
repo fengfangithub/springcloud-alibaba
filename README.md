@@ -441,3 +441,17 @@ Trace:类似于树结构的Span集合，表示一条调用链路，存在唯一�
 
 span:表示调用链路来源，通俗的理解span就是一次请求信息
 
+## SpringCloud Alibaba Nacos 服务注册和配置中心
+
+### 是什么
+
+一个更易于构建云原生应用的动态服务发现，配置管理和服务管理中心
+Nacos就是注册中心+配置中心的组合
+
+### Nacos和CAP
+
+![img_25.png](image/img_25.png)
+
+### 切换
+
+![img_26.png](image/img_26.png)
