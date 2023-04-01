@@ -472,3 +472,10 @@ Nacos就是注册中心+配置中心的组合
 ### 降级
 ![img_31.png](image/img_31.png)
 ![img_32.png](image/img_32.png)
+
+## seata分布式事物
+
+### 处理过程
+![img_33.png](image/img_33.png)
+![img_34.png](image/img_34.png)
+

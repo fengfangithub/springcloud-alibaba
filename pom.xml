@@ -47,6 +47,9 @@
         <module>nacos-order-consumer</module>
         <module>nacos-config-client</module>
         <module>sentinel-service</module>
+        <module>seata-storage</module>
+        <module>seata-order</module>
+        <module>seata-account</module>
     </modules>
 
     <dependencyManagement>
