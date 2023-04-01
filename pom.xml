@@ -46,6 +46,7 @@
         <module>nacos-payment-provider</module>
         <module>nacos-order-consumer</module>
         <module>nacos-config-client</module>
+        <module>sentinel-service</module>
     </modules>
 
     <dependencyManagement>

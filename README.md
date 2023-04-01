@@ -459,3 +459,16 @@ Nacos就是注册中心+配置中心的组合
 ### Nacos中的dataid的组成格式与SpringBoot配置文件中的匹配规则
 
 ![img_27.png](image/img_27.png)
+
+## SpringCloud Alibaba Sentinel实现熔断与限流
+
+### 能干啥
+![img_28.png](image/img_28.png)
+
+### 流控
+![img_29.png](image/img_29.png)
+![img_30.png](image/img_30.png)
+
+### 降级
+![img_31.png](image/img_31.png)
+![img_32.png](image/img_32.png)
